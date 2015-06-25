@@ -1,5 +1,5 @@
 ﻿# Load WinSCP .NET assembly
-Add-Type -Path "WinSCPnet.dll"
+Add-Type -Path (Join-Path $PSScriptRoot "WinSCPnet.dll")
  
 # Session.FileTransferred event handler
  
