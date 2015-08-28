@@ -124,12 +124,12 @@ function Sync-SecureFiles {
                 $session.Dispose()
             }
  
-            exit 0
+            #exit 0
         }
         catch [Exception]
         {
             Write-Host $_.Exception.Message
-            exit 1
+            #exit 1
         }
 
 	}
