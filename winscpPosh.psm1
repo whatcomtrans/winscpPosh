@@ -74,7 +74,7 @@ function Sync-SecureFiles {
         [Parameter(Mandatory=$false,HelpMessage="Specify a host fingerprint.")]
         [String]$SshHostKeyFingerprint,
         [Parameter(Mandatory=$false,HelpMessage="Deletes obsolete files, cannot be used with SynchronizationMode both")]
-        [String]$removeFiles,
+        [Switch]$removeFiles,
         [Parameter(Mandatory=$false,HelpMessage="Hides results output")]
         [Switch]$Silent
 
@@ -107,13 +107,11 @@ function Sync-SecureFiles {
                 # Connect
                 $session.Open($sessionOptions)
         
-                #$session.ListDirectory("/oracle/fileattachments/prod/")
-
                 $transferOptions = New-Object WinSCP.TransferOptions
                 $transferOptions.TransferMode = [WinSCP.TransferMode]::Binary
 
                 # Synchronize files
-                $synchronizationResult = $session.SynchronizeDirectories($SynchronizationMode, $LocalPath, $RemotePath, $False, $false, [WinSCP.SynchronizationCriteria]::Time , $transferOptions)
+                $synchronizationResult = $session.SynchronizeDirectories($SynchronizationMode, $LocalPath, $RemotePath, $removeFiles, $false, [WinSCP.SynchronizationCriteria]::Time , $transferOptions)
  
                 # Throw on any error
                 $synchronizationResult.Check()
